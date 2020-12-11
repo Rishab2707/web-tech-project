@@ -1,7 +1,7 @@
 const db = require('../models');
 const jwt = require('jsonwebtoken');
 
-// for development only
+
 exports.getUsers = async (req, res, next) => {
   try {
     const users = await db.User.find();

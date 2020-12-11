@@ -3,8 +3,7 @@ const db = require('../models');
 exports.showPolls = async (req, res, next) => {
   try {
     const polls = await db.Poll.find().populate('user', ['username', 'id']);
-    // .populate('voted', ['username', 'id']);
-
+    
     return res.status(200).json(polls);
   } catch (err) {
     return next({
@@ -104,7 +103,7 @@ exports.getPoll = async (req, res, next) => {
       'username',
       'id',
     ]);
-    // .populate('voted', ['username', 'id']);
+    
     if (!poll) throw new Error('No poll found');
 
     return res.status(200).json(poll);
@@ -121,9 +120,9 @@ exports.deletePoll = async (req, res, next) => {
   const { id: userId } = req.decoded;
   try {
     let user = await db.User.findById(userId)
-    if(user.polls) { // not sure if necessary either...
+    if(user.polls) { 
       user.polls = user.polls.filter(userPoll => {
-        return userPoll._id.toString() !== pollId.toString() // not sure if necessary to use toString()
+        return userPoll._id.toString() !== pollId.toString() 
       })
     }
     
